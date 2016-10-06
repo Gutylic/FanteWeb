@@ -1,0 +1,102 @@
+﻿.titulo {
+    text-align: center;
+    font-size: 20px;   
+    color: gray;
+    margin-bottom: 20px; /*fijarse*/
+}
+
+#ImagenLogo {
+    margin-top:5px
+}
+
+.contenedor {
+    font-size:16px; 
+    text-align:center;
+
+}
+
+.registrese {
+    text-align:center;
+    font-size:24px; 
+    margin-top:5px
+
+}
+
+#codigoPais {
+     padding-left:5px; 
+     margin-top:20px; 
+     text-align:left; 
+     margin-left:10px
+
+}
+
+#numeroCelular {
+    padding-left:5px;
+    margin-top:20px; 
+    text-align:left; 
+    
+}
+
+#claveUsuario {
+    margin-top:10px; 
+    text-align: left;
+    margin-left:10px; 
+    padding-left:5px
+}
+
+#reClaveUsuario {
+    margin-top:10px;   
+    text-align: left;
+    padding-left:5px
+
+}
+
+#ImagenCaptcha {
+      margin-left: 10px;
+    margin-top:10px
+}
+
+#captchaTextBox {
+    margin-top:10px; 
+    
+    text-align: left; 
+    padding-left:5px
+}
+
+#botonRegistrarme {
+    margin-top:10px;
+}
+
+.contenedorError {
+    font-size:16px; 
+    text-align:center;
+   
+}
+
+.registrseError {
+    text-align:center;
+    font-size:24px;
+    margin-top:5px
+}
+
+#esperandoEtiqueta {
+    padding-left: 40px
+}
+
+#botonContraseña {
+    margin-top:10px;
+}
+
+
+
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+    .titulo {
+        font-size: 40px;
+    }
+}
+
+
+

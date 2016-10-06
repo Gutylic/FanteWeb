@@ -1,0 +1,16 @@
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\bin\Fante.dll.config
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\bin\Fante.dll
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\bin\Fante.pdb
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.csprojResolveAssemblyReference.cache
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.dll
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.pdb
+C:\Users\Mara\Desktop\Fante\FanteWeb\Fante\bin\AjaxControlToolkit.dll
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\Fante.dll.config
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\Fante.dll
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\Fante.pdb
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\AjaxControlToolkit.dll
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.csprojResolveAssemblyReference.cache
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.dll
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\obj\Debug\Fante.pdb
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\Microsoft.QualityTools.Testing.Fakes.dll
+C:\Users\Licen\Desktop\Fante\FanteWeb\Fante\bin\es\Microsoft.QualityTools.Testing.Fakes.resources.dll

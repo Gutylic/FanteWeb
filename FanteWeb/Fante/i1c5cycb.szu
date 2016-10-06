@@ -1,0 +1,100 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registrarse.aspx.cs" Inherits="Fante.Registrarse" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Fante ¡Es Aprobar!</title>
+
+    <!-- Latest compiled and minified CSS -->
+  
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+       
+        <div class="row well">
+            <div class ="col-xs-2"style="text-align:center"><asp:Image ID="Image1" runat="server" ImageUrl="~/Image/logo2.png" style="margin-top:5px"/></div>
+            <div class ="col-xs-10" ></div>               
+        </div>
+
+        <div class="container">
+             <div class="row">
+                <div class ="col-xs-3"></div>
+                <div class ="col-xs-6" style="text-align:center; font-size:40px; margin-top:5px; color:gray">Crea tu cuenta de Fante</div>
+                <div class ="col-xs-3"></div>
+
+            </div>
+
+            <div class="row">
+                <div class ="col-xs-6" style="font-size:22px; text-align:center; margin-top:50px">Solo necesitas una cuenta <br /></div> 
+               
+            
+            </div>
+
+            <div class="row">
+                <div class ="col-xs-6" style="font-size:13px; text-align:center; margin-top:-230px">Accede a todos los servicios de Fante tu profesor particular en el hogar</div>
+            </div>
+            
+
+
+            <div class="row">
+                
+                <div class ="col-xs-6" style="text-align:center">
+                    <asp:Image ID="Image44" runat="server" ImageUrl="~/Image/materias.png" style="margin-top:-290px"/></div>
+                
+
+            </div>
+
+
+             <div class="row">
+
+                <div class ="col-xs-6 well" style="font-size:16px; margin-top:-50px; margin-left:582px; text-align:center">
+                    <h3 style="text-align:center;font-size:24px; margin-top:5px">Registrese por celular</h3>
+                    <span >y comienza a enviar y recibir tus ejercicios por Whatsapp.</span>
+                    <asp:TextBox ID="TextBox1" style="padding-left:5px; margin-top:20px; text-align:left; margin-left:80px" class="form-control" runat="server" Height="40px" Width="70%" ForeColor="LightGray">
+                        Ingresa tu número de whatsapp
+                    </asp:TextBox>
+                    <asp:TextBox ID="TextBox2" class="form-control" style="margin-top:10px; text-align: left;margin-left:80px; padding-left:5px" runat="server" Height="40px" Width="34%" ForeColor="LightGray">
+                        Ingresa tu clave
+                    </asp:TextBox>
+                    <asp:TextBox ID="TextBox5" class="form-control" style="margin-top:-40px;margin-left:276px; text-align: left; padding-left:5px" runat="server" Height="40px" Width="34%"></asp:TextBox>
+                    <asp:TextBox ID="TextBox3" style="margin-top:10px;padding-left:5px; text-align:left; margin-left:80px" class="form-control" runat="server" Height="40px" Width="20%" ForeColor="LightGray">
+                        R3jt5
+                    </asp:TextBox>
+                    <asp:TextBox ID="TextBox4" class="form-control" style="margin-top:-40px; margin-left:201px; text-align: left; padding-left:5px" runat="server" Height="40px" Width="48%" ForeColor="LightGray">
+                        ingrese captcha
+                    </asp:TextBox>
+                    <asp:Button ID="Button1" runat="server" style="margin-top:10px;" Text="Registrarme" CssClass="btn btn-primary" />
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class ="col-xs-6 well"></div>
+                <div class ="col-xs-6 well" style="text-align:center">
+                     <asp:Image ID="Image2" runat="server" ImageUrl="~/Image/usuario.png" style="margin-top:15px"/>
+                </div>
+                
+           </div>
+           
+
+          
+
+
+        </div>
+
+
+
+    </form>
+</body>
+</html>

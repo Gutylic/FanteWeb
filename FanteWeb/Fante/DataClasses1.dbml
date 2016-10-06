@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="APP" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=GustavoPC;Initial Catalog=APP;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="APPConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tablaValorOfertas" Member="tablaValorOfertas">
+    <Type Name="tablaValorOfertas">
+      <Column Name="id_Oferta" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="validezOferta" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="valorOferta" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="nombreOferta" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaRecomendados" Member="tablaRecomendados">
+    <Type Name="tablaRecomendados">
+      <Column Name="id_UsuarioRecomendado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigoPais" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="numeroCelular" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="fechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaTarjeta" Member="tablaTarjeta">
+    <Type Name="tablaTarjeta">
+      <Column Name="id_Tarjeta" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigoTarjeta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="creditoTarjeta" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="vencimientoTarjeta" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="activacionTarjeta" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaUsuario" Member="tablaUsuario">
+    <Type Name="tablaUsuario">
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="codigoPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="numeroCelular" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="activacionUsuario" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="codigoSMS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="correoElectronico" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="id_Facebook" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="nameFacebook" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="tablaUsuario_tablaCreditoUsuario" Member="tablaCreditoUsuario" ThisKey="id_Usuario" OtherKey="id_Usuario" Type="tablaCreditoUsuario" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaCreditoUsuario" Member="tablaCreditoUsuario">
+    <Type Name="tablaCreditoUsuario">
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="creditoUsuario" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="prestamoReal" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="prestamoSOS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bonificacionRecarga" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tablaUsuario_tablaCreditoUsuario" Member="tablaUsuario" ThisKey="id_Usuario" OtherKey="id_Usuario" Type="tablaUsuario" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vistaRespuestasEjercicios" Member="vistaRespuestasEjercicios">
+    <Type Name="vistaRespuestasEjercicios">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vencimientoEjercicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tituloEjercicio" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ubicacionRespuestaEjercicio" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="id_Respuesta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vistaRespuestaVideos" Member="vistaRespuestaVideos">
+    <Type Name="vistaRespuestaVideos">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ubicacionVideosExplicaciones" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vencimientoEjercicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="tituloEjercicio" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id_Respuesta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaEjercicios" Member="tablaEjercicios">
+    <Type Name="tablaEjercicios">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="id_TipoEjercicio" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="explicacionRealizada" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tablaEnunciadoEjercicios_tablaEjercicios" Member="tablaEnunciadoEjercicios" ThisKey="id_Ejercicio" OtherKey="id_Ejercicio" Type="tablaEnunciadoEjercicios" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="tablaTipoProducto_tablaEjercicios" Member="tablaTipoProducto" ThisKey="id_TipoEjercicio" OtherKey="id_TipoEjercicio" Type="tablaTipoProducto" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaEnunciadoEjercicios" Member="tablaEnunciadoEjercicios">
+    <Type Name="tablaEnunciadoEjercicios">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="enunciadoMATH" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="enunciadoLimpio" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="tablaEnunciadoEjercicios_tablaEjercicios" Member="tablaEjercicios" ThisKey="id_Ejercicio" OtherKey="id_Ejercicio" Type="tablaEjercicios" Cardinality="One" />
+      <Association Name="tablaEnunciadoEjercicios_tablaUbicacionRespuesta" Member="tablaUbicacionRespuesta" ThisKey="id_Ejercicio" OtherKey="id_Ejercicio" Type="tablaUbicacionRespuesta" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaUbicacionRespuesta" Member="tablaUbicacionRespuesta">
+    <Type Name="tablaUbicacionRespuesta">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ubicacionRespuestaEjercicio" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="ubicacionVideosExplicaciones" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="tablaEnunciadoEjercicios_tablaUbicacionRespuesta" Member="tablaEnunciadoEjercicios" ThisKey="id_Ejercicio" OtherKey="id_Ejercicio" Type="tablaEnunciadoEjercicios" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tablaTipoProducto" Member="tablaTipoProducto">
+    <Type Name="tablaTipoProducto">
+      <Column Name="id_TipoEjercicio" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="tipoProducto" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="tablaTipoProducto_tablaEjercicios" Member="tablaEjercicios" ThisKey="id_TipoEjercicio" OtherKey="id_TipoEjercicio" Type="tablaEjercicios" />
+    </Type>
+  </Table>
+  <Function Name="dbo.loguearUsuarioPC" Method="loguearUsuarioPC">
+    <Parameter Name="nickUsuario" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="respuestas" Type="System.String" DbType="NVarChar(30)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.recuperarContrasenaPC" Method="recuperarContrasenaPC">
+    <Parameter Name="nickUsuario" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.registrarUsuarioCelular" Method="registrarUsuarioCelular">
+    <Parameter Name="codigoPais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="numeroCelular" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="codigoSMS" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.registrarUsuarioFacebookPC" Method="registrarUsuarioFacebookPC">
+    <Parameter Name="id_Facebook" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="nameFacebook" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="respuestas" Type="System.String" DbType="NVarChar(40)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.registrarUsuarioEmailPC" Method="registrarUsuarioEmailPC">
+    <Parameter Name="correoElectronico" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="claveUsuario" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="respuesta" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.mostrarPerfilUsuarioPC" Method="mostrarPerfilUsuarioPC">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="mostrarPerfilUsuarioPCResult">
+      <Column Name="correoElectronico" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="numeroCelular" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="codigoPais" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.recomendarUsuarioCelular" Method="recomendarUsuarioCelular">
+    <Parameter Name="codigoPais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="numeroCelular" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.actualizarPerfilCelularPC" Method="actualizarPerfilCelularPC">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codigoPais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="numeroCelular" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.actualizarPerfilCorreoPC" Method="actualizarPerfilCorreoPC">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="correoElectronico" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.actualizarPerfilContrasenaPC" Method="actualizarPerfilContrasenaPC">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="contrasenaUsuario" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.activarUsuarioCelular" Method="activarUsuarioCelular">
+    <Parameter Name="codigoPais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="numeroCelular" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="codigoSMS" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.recomendarUsuarioCelular" Method="recomendarUsuarioCelular1">
+    <Parameter Name="codigoPais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="numeroCelular" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cargaSOSCelular" Method="cargaSOSCelular">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Decimal" DbType="Decimal(18,2)" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cargarCreditoTarjetaPagoTotalSOS" Method="cargarCreditoTarjetaPagoTotalSOS">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codigoTarjeta" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cargarCreditoTarjetaPagoParcialSOS" Method="cargarCreditoTarjetaPagoParcialSOS">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codigoTarjeta" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.avisoPrestamoPedido" Method="avisoPrestamoPedido">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.modificarNombre" Method="modificarNombre">
+    <Parameter Name="id_PedidoEjercicio" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insertarEjercicioEnviado" Method="insertarEjercicioEnviado">
+    <Parameter Name="archivoAdjunto" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="explicarEjercicio" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="okRealizado" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ubicarRespuestasEjercicios" Method="ubicarRespuestasEjercicios">
+    <Parameter Name="id_Respuesta" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ubicarRespuestasEjerciciosResult">
+      <Column Name="ubicacionRespuestaEjercicio" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ubicarRespuestasVideos" Method="ubicarRespuestasVideos">
+    <Parameter Name="id_Respuesta" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ubicarRespuestasVideosResult">
+      <Column Name="ubicacionVideosExplicaciones" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.contarRespuestasEjercicios" Method="contarRespuestasEjercicios">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.contarRespuestasVideos" Method="contarRespuestasVideos">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <Parameter Name="resultado" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.mostrarRespuestasEjercicios" Method="mostrarRespuestasEjercicios">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="mostrarRespuestasEjerciciosResult">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vencimientoEjercicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="tituloEjercicio" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_Respuesta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.mostrarRespuestasVideos" Method="mostrarRespuestasVideos">
+    <Parameter Name="id_Usuario" Type="System.Int32" DbType="Int" />
+    <ElementType Name="mostrarRespuestasVideosResult">
+      <Column Name="id_Ejercicio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="vencimientoEjercicio" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="tituloEjercicio" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id_Usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_Respuesta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

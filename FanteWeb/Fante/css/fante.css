@@ -1,0 +1,225 @@
+﻿.miCuenta {
+    background-color: #eeeeee;
+    text-align: center;
+    height: 50px;
+    box-shadow: 2px 2px 5px #999;
+}
+
+.panelBlanco {
+    text-align: center;
+    padding-top: 10px;
+    height: 525px;
+    margin-bottom: 0px;
+}
+
+.informacion {
+    font-size: 20px;
+    color: white;
+    background-color: #3873b7;
+    height: 50px;
+    box-shadow: 2px 2px 5px #999;
+    margin-bottom: 2px;
+}
+
+.panelGris {
+    background-color: #eeeeee;
+    height: 525px;
+}
+
+.contenedor {
+    width:100%; 
+    text-align:center; 
+    margin-top:100px
+}
+
+#etiquetaNumeroWhatsapp {
+    font-size:20px;
+    font-weight:bold
+}
+
+#textBoxNumeroPais {
+    font-size:16px;
+    font-weight:bold; 
+    color:gray
+}
+
+#textBoxNumeroWhatsapp {
+    font-size:16px;
+    font-weight:bold; 
+    color:gray
+}
+
+.btnModificar {
+    text-align:center
+}
+
+#botonModificar {
+    margin-top:83px
+}
+
+.btnCancelar {
+    text-align:center
+}
+
+#botonCancelar {
+     margin-top:30px 
+}
+
+
+#nombrePerfil {
+    margin-top: 50px;
+    font-size: 13px;
+    color: #428bca;
+}
+
+#etiqueta1 {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+.botonmayor {
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 2px;
+}
+
+.altoCambio {
+    height: 60px;
+}
+
+#etiqueta2 {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+#subEtiquetaPrestamoSOS {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+#etiqueta3 {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+#etiquetaWhatsapp {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+
+#etiqueta4 {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+#etiqueta5 {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
+@media (min-width: 768px) {
+
+    #textBoxNumeroPais {
+    font-size:18px;
+    
+}
+
+#textBoxNumeroWhatsapp {
+    font-size:18px;
+    
+}
+
+
+    .panelGris {
+        height: 525px;
+    }
+
+    #nombrePerfil {
+        font-size: 20px;
+    }
+
+    #etiqueta1 {
+        font-size: 11px;
+        padding-left: 7px;
+    }
+
+    #etiquetaWhatsapp1 {
+        font-size: 13px;
+    }
+
+    .altoCambioPrimero {
+        margin-top: 20px;
+    }
+
+    .altoCambio {
+        height: 90px;
+    }
+
+    #etiqueta2 {
+        font-size: 11px;
+        padding-left: 7px;
+    }
+
+    #subEtiquetaPrestamoSOS {
+        font-size: 11px;
+    }
+
+    #etiqueta3 {
+        font-size: 11px;
+        padding-left: 7px;
+    }
+
+    #etiquetaWhatsapp3 {
+        font-size: 13px;
+    }
+
+   #botonCancelar {
+     margin-top:83px 
+}
+}
+
+@media (min-width: 992px) {
+
+    #etiqueta1 {
+        font-size: 13px;
+        padding-left: 7px;
+    }
+
+    #etiquetaWhatsapp1 {
+        font-size: 13px;
+    }
+    
+    #etiqueta2 {
+        font-size: 13px;
+        padding-left: 7px;
+    }
+
+    #subEtiquetaPrestamoSOS {
+        font-size: 13px;
+    }
+
+    #etiqueta3 {
+        font-size: 13px;
+        padding-left: 7px;
+    }
+
+    #etiquetaWhatsapp3 {
+        font-size: 13px;
+    }
+    #etiqueta4 {
+        font-size: 13px;
+        padding-left: 7px;
+    }
+    #etiqueta5 {
+        font-size: 13px;
+        padding-left: 7px;
+    }
+}

@@ -1,0 +1,106 @@
+﻿a:link {
+    text-decoration: none;
+    color: gray;
+}
+
+a:visited {
+    text-decoration: none;
+    color: gray;
+}
+
+a:active {
+    text-decoration: none;
+    color: rgb(153, 153, 153);
+}
+
+a:hover {
+    color: rgb(153, 153, 153);
+    text-decoration: none;
+}
+
+.nuevePuntos {
+    font-size: 18px;
+    margin-top: 7px;
+    padding-left: 7px;
+}
+
+.imagenLogo {
+    width: 250px;
+    height: 180px;
+    margin-top: 50px;
+}
+
+.suerte {
+    text-align: center;
+}
+
+.resover {
+    margin-top: 50px;
+}
+
+.explicar {
+    margin-top: 50px;
+}
+
+.contendorNuevePuntos {
+    font-size: 18px;
+}
+
+#linkAyuda {
+    margin-right: 15px;
+}
+
+.contenedorSuperior {
+    text-align: right;
+    margin-top: 15px;
+}
+
+#todo {
+    margin-right: 15px;
+    outline: none;
+}
+
+.alumnoRegistrado {
+    outline: none;
+}
+
+.contenidoAlumno {
+    width: 290px;
+}
+
+#etiquetaUsuario {
+    margin-left: 100px;
+    width: 290px;
+    color: darkblue;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#etiquetaSaldo {
+    margin-left: 150px;
+    padding-top: 20px;
+    color: darkgray;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#botonMiCuenta {
+    margin-left: 130px;
+    margin-top: 10px;
+}
+
+.linea {
+    margin-top: -10px;
+    width: 90%;
+    margin-left: -10px;
+}
+
+.contenedorSubir {
+    border: #4d90fe 1px solid;
+    height: 40px;
+}
+
+#SubirAdjunto {
+    margin-top: 8px;
+    outline: none;
+}

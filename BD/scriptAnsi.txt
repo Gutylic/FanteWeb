@@ -1,0 +1,2275 @@
+USE [APP]
+GO
+/****** Object:  Table [dbo].[tablaRespuestasEjercicios]    Script Date: 06/10/2016 0:21:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaRespuestasEjercicios](
+	[id_Respuesta] [int] NOT NULL,
+	[id_Ejercicio] [int] NOT NULL,
+	[id_Usuario] [int] NOT NULL,
+	[vencimientoEjercicio] [datetime] NOT NULL,
+	[tituloEjercicio] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaUbicacionRespuesta]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaUbicacionRespuesta](
+	[id_Ejercicio] [int] NOT NULL,
+	[ubicacionRespuestaEjercicio] [nvarchar](40) NULL,
+	[ubicacionVideosExplicaciones] [nvarchar](100) NULL,
+ CONSTRAINT [PK_tablaUbicacionRespuesta] PRIMARY KEY CLUSTERED 
+(
+	[id_Ejercicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vistaRespuestasEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[vistaRespuestasEjercicios]
+AS
+SELECT        dbo.tablaUbicacionRespuesta.id_Ejercicio, dbo.tablaRespuestasEjercicios.vencimientoEjercicio, dbo.tablaRespuestasEjercicios.id_Usuario, dbo.tablaRespuestasEjercicios.tituloEjercicio, 
+                         dbo.tablaUbicacionRespuesta.ubicacionRespuestaEjercicio, dbo.tablaRespuestasEjercicios.id_Respuesta
+FROM            dbo.tablaUbicacionRespuesta INNER JOIN
+                         dbo.tablaRespuestasEjercicios ON dbo.tablaUbicacionRespuesta.id_Ejercicio = dbo.tablaRespuestasEjercicios.id_Ejercicio
+
+GO
+/****** Object:  Table [dbo].[tablaRespuestasVideos]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaRespuestasVideos](
+	[id_Respuesta] [int] NOT NULL,
+	[id_Ejercicio] [int] NOT NULL,
+	[id_Usuario] [int] NOT NULL,
+	[vencimientoEjercicio] [datetime] NOT NULL,
+	[tituloEjercicio] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+
+GO
+/****** Object:  View [dbo].[vistaRespuestaVideos]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[vistaRespuestaVideos]
+AS
+SELECT        dbo.tablaUbicacionRespuesta.id_Ejercicio, dbo.tablaUbicacionRespuesta.ubicacionVideosExplicaciones, dbo.tablaRespuestasVideos.id_Usuario, dbo.tablaRespuestasVideos.vencimientoEjercicio, 
+                         dbo.tablaRespuestasVideos.tituloEjercicio, dbo.tablaRespuestasVideos.id_Respuesta
+FROM            dbo.tablaUbicacionRespuesta INNER JOIN
+                         dbo.tablaRespuestasVideos ON dbo.tablaUbicacionRespuesta.id_Ejercicio = dbo.tablaRespuestasVideos.id_Ejercicio
+
+GO
+/****** Object:  Table [dbo].[tablaCreditoUsuario]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaCreditoUsuario](
+	[id_Usuario] [int] NOT NULL,
+	[creditoUsuario] [decimal](18, 2) NOT NULL,
+	[prestamoReal] [decimal](18, 2) NULL,
+	[prestamoSOS] [bit] NULL,
+	[bonificacionRecarga] [int] NULL,
+ CONSTRAINT [PK_tablaCreditoUsuario] PRIMARY KEY CLUSTERED 
+(
+	[id_Usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaEjercicios](
+	[id_Ejercicio] [int] NOT NULL,
+	[id_TipoEjercicio] [int] NULL,
+	[explicacionRealizada] [bit] NULL,
+ CONSTRAINT [PK_tablaEjercicios] PRIMARY KEY CLUSTERED 
+(
+	[id_Ejercicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaEjerciciosEnviados]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaEjerciciosEnviados](
+	[id_PedidoEjercicio] [int] NOT NULL,
+	[archivoAdjunto] [nvarchar](30) NOT NULL,
+	[explicarEjercicio] [bit] NOT NULL,
+	[okRealizado] [bit] NOT NULL,
+	[id_Usuario] [int] NOT NULL,
+	[fechaPedido] [datetime] NOT NULL,
+	[id_Profesor] [int] NULL,
+ CONSTRAINT [PK_tablaEjerciciosEnviadosa] PRIMARY KEY CLUSTERED 
+(
+	[id_PedidoEjercicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaEnunciadoEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaEnunciadoEjercicios](
+	[id_Ejercicio] [int] NOT NULL,
+	[enunciadoMATH] [nvarchar](max) NULL,
+	[enunciadoLimpio] [nvarchar](max) NULL,
+ CONSTRAINT [PK_tablaEnunciadoEjercicios] PRIMARY KEY CLUSTERED 
+(
+	[id_Ejercicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaRecomendados]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaRecomendados](
+	[id_UsuarioRecomendado] [int] NOT NULL,
+	[codigoPais] [int] NULL,
+	[numeroCelular] [bigint] NULL,
+	[fechaRegistro] [datetime] NULL,
+	[id_Usuario] [int] NULL,
+ CONSTRAINT [PK_tablaRecomendados] PRIMARY KEY CLUSTERED 
+(
+	[id_UsuarioRecomendado] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaTarjeta]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaTarjeta](
+	[id_Tarjeta] [int] NOT NULL,
+	[codigoTarjeta] [int] NOT NULL,
+	[creditoTarjeta] [decimal](18, 2) NOT NULL,
+	[vencimientoTarjeta] [datetime] NOT NULL,
+	[activacionTarjeta] [bit] NOT NULL,
+ CONSTRAINT [PK_Table_1] PRIMARY KEY CLUSTERED 
+(
+	[id_Tarjeta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaTipoProducto]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaTipoProducto](
+	[id_TipoEjercicio] [int] NOT NULL,
+	[tipoProducto] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_tablaTipoProducto] PRIMARY KEY CLUSTERED 
+(
+	[id_TipoEjercicio] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaUsuario]    Script Date: 06/10/2016 0:21:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaUsuario](
+	[id_Usuario] [int] NOT NULL,
+	[codigoPais] [int] NULL,
+	[numeroCelular] [bigint] NULL,
+	[contrasenaUsuario] [nvarchar](10) NULL,
+	[activacionUsuario] [bit] NULL,
+	[codigoSMS] [int] NULL,
+	[correoElectronico] [nvarchar](30) NULL,
+	[id_Facebook] [bigint] NULL,
+	[nameFacebook] [nvarchar](30) NULL,
+ CONSTRAINT [PK_tablaUsuario] PRIMARY KEY CLUSTERED 
+(
+	[id_Usuario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tablaValorOfertas]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tablaValorOfertas](
+	[id_Oferta] [int] NULL,
+	[validezOferta] [bit] NULL,
+	[valorOferta] [decimal](18, 2) NULL,
+	[nombreOferta] [nchar](30) NULL
+) ON [PRIMARY]
+
+GO
+INSERT [dbo].[tablaCreditoUsuario] ([id_Usuario], [creditoUsuario], [prestamoReal], [prestamoSOS], [bonificacionRecarga]) VALUES (1, CAST(65.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), 0, NULL)
+GO
+INSERT [dbo].[tablaCreditoUsuario] ([id_Usuario], [creditoUsuario], [prestamoReal], [prestamoSOS], [bonificacionRecarga]) VALUES (2, CAST(65.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), 0, NULL)
+GO
+INSERT [dbo].[tablaCreditoUsuario] ([id_Usuario], [creditoUsuario], [prestamoReal], [prestamoSOS], [bonificacionRecarga]) VALUES (3, CAST(65.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), 0, NULL)
+GO
+INSERT [dbo].[tablaCreditoUsuario] ([id_Usuario], [creditoUsuario], [prestamoReal], [prestamoSOS], [bonificacionRecarga]) VALUES (4, CAST(110.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (1, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (2, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (3, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (4, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (5, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (6, 3, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (7, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (8, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (9, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (10, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (11, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (12, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (13, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (14, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (15, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (16, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (17, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (18, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (19, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (20, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (21, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (22, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (23, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (24, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (25, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (26, 1, 1)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (27, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (28, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (29, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (30, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (31, 1, 0)
+GO
+INSERT [dbo].[tablaEjercicios] ([id_Ejercicio], [id_TipoEjercicio], [explicacionRealizada]) VALUES (32, 1, 0)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (5, N'mariano@hotmail.com+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:16:23.533' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (6, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:24:55.360' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (7, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:28:09.823' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (8, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:29:55.770' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (9, N'mariano@hotmail.com+_adj.png', 0, 0, 4, CAST(N'2016-09-29T16:58:02.983' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (10, N'mariano@hotmail.com+_adj.png', 0, 0, 4, CAST(N'2016-09-29T16:58:09.840' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (11, N'mariano@hotmail.com+_adj.png', 0, 0, 4, CAST(N'2016-09-29T16:58:47.367' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (12, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:58:51.697' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (13, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:59:33.127' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (14, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T16:59:41.917' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (15, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:01:12.710' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (16, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:31:15.920' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (17, N'4+_adj.png', 0, 0, 4, CAST(N'2016-09-29T17:31:26.200' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (18, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:31:36.777' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (19, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:34:09.673' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (20, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:35:08.840' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (21, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:38:57.287' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (22, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:43:33.690' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (23, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:48:17.903' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (24, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:49:42.410' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (25, N'4+_adj.png', 0, 0, 4, CAST(N'2016-09-29T17:49:51.970' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (26, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:50:07.900' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEjerciciosEnviados] ([id_PedidoEjercicio], [archivoAdjunto], [explicarEjercicio], [okRealizado], [id_Usuario], [fechaPedido], [id_Profesor]) VALUES (27, N'4+_adj.png', 1, 0, 4, CAST(N'2016-09-29T17:51:43.460' AS DateTime), NULL)
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (1, N'2121212', N'121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (2, N'121212', N'121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (3, N'212121', N'121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (4, N'1221212', N'12121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (5, N'2121212', N'12121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (6, N'1221212', N'1212121')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (7, N'2121212', N'121212')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (8, N'21212121', N'1212121')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (9, N'qwwqwq', N'wqqwqwq')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (10, N'asdasds', N'adsada')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (11, N'asdasad', N'asdasdas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (12, N'asdasdas', N'asdasdas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (13, N'asddas', N'asdasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (14, N'fdsfsdfsd', N'sdfsfds')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (15, N'asdadsas', N'adsadsa')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (16, N'dasdasda', N'adsasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (17, N'sdadasda', N'adsadas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (18, N'sadasdas', N'adsasdsad')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (19, N'dasdasdas', N'asdasdasdas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (20, N'asdasda', N'asdadasd')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (21, N'daadsas', N'asdasdasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (22, N'adasdas', N'asdasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (23, N'adsasd', N'adsadasads')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (24, N'adsadsa', N'asdasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (25, N'asdasda', N'adsasd')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (26, N'adsdadsas', N'adsasdasds')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (27, N'adsasdas', N'adsasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (28, N'asdasda', N'adsadas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (29, N'adsasda', N'adsadas')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (30, N'dasad', N'adasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (31, N'dasads', N'dasdasda')
+GO
+INSERT [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio], [enunciadoMATH], [enunciadoLimpio]) VALUES (32, NULL, NULL)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (51, 54, 91133223322, CAST(N'2016-09-27T15:44:08.640' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (52, 53, 91124242525, CAST(N'2016-09-27T16:15:49.867' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (53, 66, 91122888822, CAST(N'2016-09-27T16:20:20.230' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (54, 66, 95588877733, CAST(N'2016-09-27T16:29:55.083' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (55, 99, 6547891234, CAST(N'2016-09-27T16:32:59.417' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (56, 99, 5858585858, CAST(N'2016-09-27T20:23:53.423' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (57, 99, 9999999999, CAST(N'2016-09-27T20:40:20.487' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (58, 56, 7777777777, CAST(N'2016-09-27T20:40:35.690' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (59, 80, 2222222222, CAST(N'2016-09-27T20:43:00.010' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (60, 77, 1111111111, CAST(N'2016-09-27T20:43:13.437' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (61, 25, 2525252525, CAST(N'2016-09-27T20:43:30.260' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (62, 66, 1111222255, CAST(N'2016-09-27T20:53:43.797' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (63, 69, 3456789034, CAST(N'2016-09-27T20:54:33.900' AS DateTime), 3)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (64, 55, 1548225522, CAST(N'2016-09-28T22:27:56.400' AS DateTime), 4)
+GO
+INSERT [dbo].[tablaRecomendados] ([id_UsuarioRecomendado], [codigoPais], [numeroCelular], [fechaRegistro], [id_Usuario]) VALUES (1003, 22, 11444423, CAST(N'2016-08-30T21:20:42.987' AS DateTime), 1)
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (1, 1, 1, CAST(N'2016-12-16T00:00:00.000' AS DateTime), N'primero')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (2, 2, 1, CAST(N'2016-12-16T00:00:00.000' AS DateTime), N'segundo')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (3, 1, 2, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'tercero')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (4, 3, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'cuarto')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (5, 2, 2, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'quinro')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (6, 6, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'sexto')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (7, 3, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'septimo')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (8, 17, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'octavo')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (9, 18, 3, CAST(N'2017-12-17T00:00:00.000' AS DateTime), N'nueve')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (10, 19, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'diez')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (11, 20, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'once')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (12, 21, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'doce')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (13, 22, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'trece')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (14, 22, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'catorce')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (15, 24, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'quince')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (16, 25, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'diesiseis')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (17, 26, 2, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'diesisiete')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (18, 20, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'diesiocho')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (19, 29, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'diecinuever')
+GO
+INSERT [dbo].[tablaRespuestasEjercicios] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (20, 21, 3, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'ventie')
+GO
+INSERT [dbo].[tablaRespuestasVideos] ([id_Respuesta], [id_Ejercicio], [id_Usuario], [vencimientoEjercicio], [tituloEjercicio]) VALUES (1, 7, 1, CAST(N'2017-12-12T00:00:00.000' AS DateTime), N'buen video')
+GO
+INSERT [dbo].[tablaTipoProducto] ([id_TipoEjercicio], [tipoProducto]) VALUES (1, N'Ejercicios')
+GO
+INSERT [dbo].[tablaTipoProducto] ([id_TipoEjercicio], [tipoProducto]) VALUES (2, N'Explicacion')
+GO
+INSERT [dbo].[tablaTipoProducto] ([id_TipoEjercicio], [tipoProducto]) VALUES (3, N'Video')
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (1, N'reo0ahPl69uRSED', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (2, N'REWOz5EnquCL7aR', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (3, N'Rf2HAv1v3m2LYgJ', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (4, N'XlzCykUTXMV3zaM', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (5, N'liABLG4xVmsusDn', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (6, N'q4U6Ur3k0FEEXxa', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (7, NULL, N'jHd3Mco8UHU')
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (8, N'hpc7KIiR64sNzEm', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (9, N'faaE6RxW0DE95DN', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (10, N'	2yD8ogNDPhA8nJh', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (11, N'dfYAPEfS8zlXJKx', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (12, N'npIoVyAJSyWMWHq', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (13, N'5mvooHq6ULfxk6x', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (14, N'5p5wrueIZM586SV', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (15, N'	JhKhuDZPkOacu6Q', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (16, N'7f0lCyXuwRflSNI', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (17, N'ZUPJibWg3qsWx4I', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (18, N'	JtCml3rI6KBvH9u', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (19, N'OZ1s2GTcwy7WqId', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (20, N'XlzCykUTXMV3zaM', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (21, N'5mvooHq6ULfxk6x', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (22, N'dfYAPEfS8zlXJKx', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (23, N'XlzCykUTXMV3zaM', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (24, N'	JhKhuDZPkOacu6Q', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (25, N'5mvooHq6ULfxk6x', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (26, N'OZ1s2GTcwy7WqId', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (27, N'XlzCykUTXMV3zaM', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (28, N'dfYAPEfS8zlXJKx', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (29, N'5mvooHq6ULfxk6x', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (30, N'	JhKhuDZPkOacu6Q', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (31, N'XlzCykUTXMV3zaM', NULL)
+GO
+INSERT [dbo].[tablaUbicacionRespuesta] ([id_Ejercicio], [ubicacionRespuestaEjercicio], [ubicacionVideosExplicaciones]) VALUES (32, N'5mvooHq6ULfxk6x', NULL)
+GO
+INSERT [dbo].[tablaUsuario] ([id_Usuario], [codigoPais], [numeroCelular], [contrasenaUsuario], [activacionUsuario], [codigoSMS], [correoElectronico], [id_Facebook], [nameFacebook]) VALUES (1, 54, 91177770000, N'222222', 1, NULL, NULL, 12, N'gutyj')
+GO
+INSERT [dbo].[tablaUsuario] ([id_Usuario], [codigoPais], [numeroCelular], [contrasenaUsuario], [activacionUsuario], [codigoSMS], [correoElectronico], [id_Facebook], [nameFacebook]) VALUES (2, NULL, NULL, NULL, 1, NULL, NULL, 10208932776388250, N'Gustavo Ro')
+GO
+INSERT [dbo].[tablaUsuario] ([id_Usuario], [codigoPais], [numeroCelular], [contrasenaUsuario], [activacionUsuario], [codigoSMS], [correoElectronico], [id_Facebook], [nameFacebook]) VALUES (3, 55, 91144447777, N'456456', 1, 672887, N'huracan@gmail.com', NULL, NULL)
+GO
+INSERT [dbo].[tablaUsuario] ([id_Usuario], [codigoPais], [numeroCelular], [contrasenaUsuario], [activacionUsuario], [codigoSMS], [correoElectronico], [id_Facebook], [nameFacebook]) VALUES (4, 54, 91155447788, N'123123', 1, NULL, N'mariano@hotmail.com', NULL, NULL)
+GO
+INSERT [dbo].[tablaValorOfertas] ([id_Oferta], [validezOferta], [valorOferta], [nombreOferta]) VALUES (7, 1, CAST(20.00 AS Decimal(18, 2)), N'sos                           ')
+GO
+INSERT [dbo].[tablaValorOfertas] ([id_Oferta], [validezOferta], [valorOferta], [nombreOferta]) VALUES (5, 0, CAST(2.00 AS Decimal(18, 2)), N'recarga                       ')
+GO
+INSERT [dbo].[tablaValorOfertas] ([id_Oferta], [validezOferta], [valorOferta], [nombreOferta]) VALUES (6, 0, CAST(3.00 AS Decimal(18, 2)), N'carga                         ')
+GO
+INSERT [dbo].[tablaValorOfertas] ([id_Oferta], [validezOferta], [valorOferta], [nombreOferta]) VALUES (8, 1, CAST(65.00 AS Decimal(18, 2)), N'registro                      ')
+GO
+INSERT [dbo].[tablaValorOfertas] ([id_Oferta], [validezOferta], [valorOferta], [nombreOferta]) VALUES (9, 1, CAST(5.80 AS Decimal(18, 2)), N'recomendado                   ')
+GO
+ALTER TABLE [dbo].[tablaEjercicios] ADD  CONSTRAINT [DF_tablaEjercicios_id_Ejercicio]  DEFAULT (NEXT VALUE FOR [secuenciaTablaEjercicios]) FOR [id_Ejercicio]
+GO
+ALTER TABLE [dbo].[tablaEjerciciosEnviados] ADD  CONSTRAINT [DF_tablaEjerciciosEnviadosa_id_PedidoEjercicio]  DEFAULT (NEXT VALUE FOR [secuenciaTablaEjerciciosEnviados]) FOR [id_PedidoEjercicio]
+GO
+ALTER TABLE [dbo].[tablaRecomendados] ADD  CONSTRAINT [DF_tablaRecomendados_id_UsuarioRecomendado]  DEFAULT (NEXT VALUE FOR [secuenciaTablaRecomendados]) FOR [id_UsuarioRecomendado]
+GO
+ALTER TABLE [dbo].[tablaRespuestasEjercicios] ADD  CONSTRAINT [DF_tablaRespuestasEjercicios_id_Respuesta]  DEFAULT (NEXT VALUE FOR [secuenciaTablaRespuestasEjercicios]) FOR [id_Respuesta]
+GO
+ALTER TABLE [dbo].[tablaRespuestasEjercicios] ADD  CONSTRAINT [DF_tablaRespuestasEjercicios_tituloEjercicio]  DEFAULT (NEXT VALUE FOR [secuenciaTablaRespuestasEjercicios]) FOR [tituloEjercicio]
+GO
+ALTER TABLE [dbo].[tablaRespuestasVideos] ADD  CONSTRAINT [DF_tablaRespuestasVideos_id_Respuesta]  DEFAULT (NEXT VALUE FOR [secuenciaTablaRespuestasVideos]) FOR [id_Respuesta]
+GO
+ALTER TABLE [dbo].[tablaRespuestasVideos] ADD  CONSTRAINT [DF_TablaRespuestasVideos_tituloEjercicio]  DEFAULT (NEXT VALUE FOR [secuenciaTablaRespuestasVideos]) FOR [tituloEjercicio]
+GO
+ALTER TABLE [dbo].[tablaTarjeta] ADD  CONSTRAINT [DF_Table_1_id_Tarjeta]  DEFAULT (NEXT VALUE FOR [secuenciaTablaTarjeta]) FOR [id_Tarjeta]
+GO
+ALTER TABLE [dbo].[tablaUsuario] ADD  CONSTRAINT [DF_tablaUsuario_id_Usuario]  DEFAULT (NEXT VALUE FOR [secuenciaTablaUsuario]) FOR [id_Usuario]
+GO
+ALTER TABLE [dbo].[tablaCreditoUsuario]  WITH CHECK ADD  CONSTRAINT [FK_tablaCreditoUsuario_tablaUsuario] FOREIGN KEY([id_Usuario])
+REFERENCES [dbo].[tablaUsuario] ([id_Usuario])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[tablaCreditoUsuario] CHECK CONSTRAINT [FK_tablaCreditoUsuario_tablaUsuario]
+GO
+ALTER TABLE [dbo].[tablaEjercicios]  WITH CHECK ADD  CONSTRAINT [FK_tablaEjercicios_tablaEnunciadoEjercicios] FOREIGN KEY([id_Ejercicio])
+REFERENCES [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[tablaEjercicios] CHECK CONSTRAINT [FK_tablaEjercicios_tablaEnunciadoEjercicios]
+GO
+ALTER TABLE [dbo].[tablaEjercicios]  WITH CHECK ADD  CONSTRAINT [FK_tablaEjercicios_tablaTipoProducto] FOREIGN KEY([id_TipoEjercicio])
+REFERENCES [dbo].[tablaTipoProducto] ([id_TipoEjercicio])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[tablaEjercicios] CHECK CONSTRAINT [FK_tablaEjercicios_tablaTipoProducto]
+GO
+ALTER TABLE [dbo].[tablaEjerciciosEnviados]  WITH CHECK ADD  CONSTRAINT [FK_tablaEjerciciosEnviados_tablaUsuario] FOREIGN KEY([id_Usuario])
+REFERENCES [dbo].[tablaUsuario] ([id_Usuario])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[tablaEjerciciosEnviados] CHECK CONSTRAINT [FK_tablaEjerciciosEnviados_tablaUsuario]
+GO
+ALTER TABLE [dbo].[tablaUbicacionRespuesta]  WITH CHECK ADD  CONSTRAINT [FK_tablaUbicacionRespuesta_tablaEnunciadoEjercicios] FOREIGN KEY([id_Ejercicio])
+REFERENCES [dbo].[tablaEnunciadoEjercicios] ([id_Ejercicio])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[tablaUbicacionRespuesta] CHECK CONSTRAINT [FK_tablaUbicacionRespuesta_tablaEnunciadoEjercicios]
+GO
+/****** Object:  StoredProcedure [dbo].[activarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[activarUsuarioCelular](@codigoPais int, @numeroCelular bigint, @codigoSMS int, @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @id_Usuario int
+	
+	select @id_Usuario = id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular and codigoSMS = @codigoSMS
+
+	if (@id_Usuario is null)
+
+		begin
+
+			set @resultado = -1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+	update tablaUsuario set activacionUsuario = 1 where id_Usuario = @id_Usuario 
+
+	set @resultado = 1
+
+	COMMIT TRANSACTION
+
+	return @resultado
+
+end try
+
+
+begin catch
+
+	set @resultado = 0
+
+	ROLLBACK TRANSACTION	
+
+	return @resultado
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilCelularPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[actualizarPerfilCelularPC](@id_Usuario int, @codigoPais int, @numeroCelular bigint, @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @correoExtra nvarchar(30)
+
+	declare @numeroExtra nvarchar(30)
+
+	if @codigoPais is null 
+
+		begin
+
+			set @codigoPais = ''
+
+		end
+
+	if @numeroCelular is null
+
+		begin
+
+			set @numeroCelular = ''
+
+		end
+
+	if @codigoPais = ''
+		begin
+			set @codigoPais = ''
+		end
+
+	if @numeroCelular =''
+
+		begin
+
+			set @numeroCelular = ''
+
+		end
+
+	if @numeroCelular = '' and @codigoPais = ''
+
+		begin
+
+			update tablaUsuario set codigoPais = @codigoPais, numeroCelular = @numeroCelular where id_Usuario = @id_Usuario
+
+			set @resultado = 1
+
+			commit transaction
+
+			return
+
+		end
+	
+	select @correoExtra = correoElectronico, @numeroExtra = numeroCelular from tablaUsuario where id_Usuario = @id_Usuario
+
+	-- analicemos que el numero de celular no se encuentra ya registrado
+
+	if (@numeroExtra <> @numeroCelular)
+
+	begin
+		
+		if exists (select id_Usuario from tablaUsuario where numeroCelular = @numeroCelular)
+
+		begin 
+
+			set @resultado = -1
+				
+			commit transaction
+
+			return
+
+		end 
+
+	end
+		
+	update tablaUsuario set codigoPais = @codigoPais, numeroCelular = @numeroCelular where id_Usuario = @id_Usuario
+
+	set @resultado = 1
+
+	commit transaction
+
+	return
+	
+end try
+
+begin catch
+
+	set @resultado = -6
+	
+	ROLLBACK TRANSACTION	
+
+	return  @resultado
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilContrasenaPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[actualizarPerfilContrasenaPC](@id_Usuario int, @contrasenaUsuario nvarchar(10), @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	update tablaUsuario set contrasenaUsuario = @contrasenaUsuario where id_Usuario = @id_Usuario
+
+	set @resultado = 1
+
+	commit transaction
+
+	return
+	
+end try
+
+begin catch
+
+	set @resultado = -6
+	
+	ROLLBACK TRANSACTION	
+
+	return  @resultado
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilCorreoPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[actualizarPerfilCorreoPC](@id_Usuario int, @correoElectronico nvarchar(30), @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	if @correoElectronico is null
+
+		begin
+
+			set @correoElectronico = ''
+
+		end
+
+	if @correoElectronico = ''
+
+		begin
+
+			update tablaUsuario set correoElectronico = @correoElectronico where id_Usuario = @id_Usuario
+
+			set @resultado = 1
+
+			commit transaction
+
+			return
+
+		end
+
+  
+
+
+	declare @correoExtra nvarchar(30)
+
+	declare @numeroExtra nvarchar(30)
+
+	select @correoExtra = correoElectronico, @numeroExtra = numeroCelular from tablaUsuario where id_Usuario = @id_Usuario
+			
+	-- analicemos que el correo no se encuentra registrado
+
+	if (@correoElectronico <> @correoExtra)
+
+	Begin
+
+		if exists (select id_Usuario from tablaUsuario where correoElectronico = @correoElectronico)
+
+		begin 
+
+			set @resultado = -2
+
+			commit transaction
+		
+			return
+				
+		end 
+
+	end
+
+	update tablaUsuario set correoElectronico = @correoElectronico where id_Usuario = @id_Usuario
+
+	set @resultado = 1
+
+	commit transaction
+
+	return
+	
+end try
+
+begin catch
+
+	set @resultado = -6
+	
+	ROLLBACK TRANSACTION	
+
+	return  @resultado
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[avisoPrestamoPedido]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE proc [dbo].[avisoPrestamoPedido] (@id_Usuario int, @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	Declare @prestamoReal decimal(18,2)
+
+	select @prestamoReal = prestamoReal from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	if @prestamoReal = 0 
+
+	begin 
+
+		set @resultado = 1
+
+		COMMIT TRANSACTION
+
+		return
+
+	end 
+
+	set @resultado = -1
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @resultado = 0
+	
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoParcialSOS]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[cargarCreditoTarjetaPagoParcialSOS] (@id_Usuario int,@codigoTarjeta int, @resultado int output) as
+
+BEGIN TRANSACTION
+
+Begin Try
+
+	Declare @id_Tarjeta int
+
+	Declare @creditoTarjeta decimal(18,2)
+
+	select @id_Tarjeta = id_Tarjeta, @creditoTarjeta = creditoTarjeta from tablaTarjeta where codigoTarjeta = @codigoTarjeta and activacionTarjeta = 0 and vencimientoTarjeta >= getdate()
+	
+	if @id_Tarjeta is null
+
+		begin
+
+			set @resultado = -1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+	update tablaTarjeta set activacionTarjeta = 1 where id_Tarjeta = @id_Tarjeta
+	 
+	Declare @prestamoReal decimal(18,2)
+
+	Declare @creditoUsuario decimal (18,2)
+
+	Select @prestamoReal = prestamoReal, @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+	
+	Declare @bonificacionRecarga int
+
+	Declare @valorOferta int
+
+	Select @valorOferta = valorOferta from TablaValorOfertas where id_Oferta = 5 and validezOferta = 1 
+
+	if @valorOferta is null
+
+		begin
+
+			set @valorOferta = 1
+
+		end
+
+	select @bonificacionRecarga = bonificacionRecarga from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	update tablacreditoUsuario set bonificacionRecarga = 1 where id_Usuario = @id_Usuario
+
+	Declare @creditoExtra int
+
+	select @creditoExtra = valorOferta from tablaValorOfertas where id_Oferta = 6 and validezOferta = 1
+
+	if @creditoExtra is null
+
+		begin
+
+			set @creditoExtra = 1
+
+		end
+	
+	if @bonificacionRecarga <> 1
+
+		begin
+		
+			set @creditoTarjeta = @creditoTarjeta * @bonificacionRecarga
+
+			if @creditoExtra <> 1
+
+				begin
+
+					set @creditoTarjeta = @creditoTarjeta * @creditoExtra
+
+				end
+				
+			if @creditoTarjeta >= @prestamoReal
+
+				begin
+					
+					update tablaCreditoUsuario set prestamoReal = 0, prestamoSOS = 0, creditoUsuario = creditoUsuario + (@creditoTarjeta - @prestamoReal), bonificacionRecarga = @valorOferta  where id_Usuario = @id_Usuario
+ 
+					set @resultado = 1
+
+					COMMIT TRANSACTION
+
+					return @resultado
+
+				end
+
+			Set @prestamoReal = @creditoTarjeta - @prestamoReal 
+
+			update tablaCreditoUsuario set prestamoReal = (0 - @prestamoReal) where id_Usuario = @id_Usuario
+
+			set @resultado = 1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+	if @creditoExtra <> 1
+
+		begin
+
+			set @creditoTarjeta = @creditoTarjeta * @creditoExtra
+
+			if @creditoTarjeta >= @prestamoReal
+			
+				begin
+					
+					update tablaCreditoUsuario set prestamoReal = 0, prestamoSOS = 0, creditoUsuario = creditoUsuario + (@creditoTarjeta - @prestamoReal), bonificacionRecarga = @valorOferta where id_Usuario = @id_Usuario
+ 
+					set @resultado = 1
+
+					COMMIT TRANSACTION
+
+					return @resultado
+
+				end
+
+			Set @prestamoReal = @creditoTarjeta - @prestamoReal 
+
+			update tablaCreditoUsuario set prestamoReal = (0 - @prestamoReal) where id_Usuario = @id_Usuario
+
+			set @resultado = 1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+			
+		end
+
+	if @creditoTarjeta >= @prestamoReal
+			
+		begin
+					
+			update tablaCreditoUsuario set prestamoReal = 0, prestamoSOS = 0, creditoUsuario = creditoUsuario + (@creditoTarjeta - @prestamoReal), bonificacionRecarga = @valorOferta where id_Usuario = @id_Usuario
+ 
+			set @resultado = 1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+		Set @prestamoReal = @creditoTarjeta - @prestamoReal 
+
+		update tablaCreditoUsuario set prestamoReal = (0 - @prestamoReal) where id_Usuario = @id_Usuario
+
+		set @resultado = 1
+
+		COMMIT TRANSACTION
+
+		return @resultado
+
+End try
+
+begin catch
+
+	set @resultado = 0	
+	
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoTotalSOS]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[cargarCreditoTarjetaPagoTotalSOS] (@id_Usuario int,@codigoTarjeta int, @resultado int output) as
+
+BEGIN TRANSACTION
+
+Begin Try
+
+	Declare @id_Tarjeta int
+
+	Declare @creditoTarjeta decimal(18,2)
+
+	select @id_Tarjeta = id_Tarjeta, @creditoTarjeta = creditoTarjeta from tablaTarjeta where codigoTarjeta = @codigoTarjeta and activacionTarjeta = 0 and vencimientoTarjeta >= GETDATE()
+	
+	if @id_Tarjeta is null
+
+		begin
+
+			set @resultado = -1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+	update tablaTarjeta set activacionTarjeta = 1 where id_Tarjeta = @id_Tarjeta
+	 
+	Declare @prestamoReal decimal(18,2)
+
+	Declare @creditoUsuario decimal (18,2)
+
+	Select @prestamoReal = prestamoReal, @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+	
+	Declare @bonificacionRecarga int
+
+	Declare @valorOferta int
+
+	Select @valorOferta = valorOferta from TablaValorOfertas where id_Oferta = 5 and validezOferta = 1 
+		
+	if @valorOferta is null
+
+		begin
+
+			set @valorOferta = 1
+
+		end
+		
+	select @bonificacionRecarga = bonificacionRecarga from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	update tablacreditoUsuario set bonificacionRecarga = 1 where id_Usuario = @id_Usuario
+
+	Declare @creditoExtra int
+
+	select @creditoExtra = valorOferta from tablaValorOfertas where id_Oferta = 6 and validezOferta = 1
+
+	if @creditoExtra is null
+
+		begin
+
+			set @creditoExtra = 1
+
+		end
+
+	if @bonificacionRecarga <> 1
+
+		begin
+		
+			set @creditoTarjeta = @creditoTarjeta * @bonificacionRecarga
+
+			if @creditoExtra <> 1
+
+				begin
+
+					set @creditoTarjeta = @creditoTarjeta * @creditoExtra
+
+				end
+
+
+			update tablaCreditoUsuario set prestamoReal = 0, prestamoSOS = 0, creditoUsuario = creditoUsuario + (@creditoTarjeta - @prestamoReal), bonificacionRecarga = @valorOferta where id_Usuario = @id_Usuario
+ 
+			set @resultado = 1
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+
+	if @creditoExtra <> 1
+
+		begin
+
+			set @creditoTarjeta = @creditoTarjeta * @creditoExtra
+
+		end
+
+	update tablaCreditoUsuario set prestamoReal = 0, prestamoSOS = 0, creditoUsuario = creditoUsuario + (@creditoTarjeta - @prestamoReal), bonificacionRecarga = @valorOferta  where id_Usuario = @id_Usuario
+ 
+	set @resultado = 1
+
+	COMMIT TRANSACTION
+
+	return @resultado
+
+End try
+
+begin catch
+
+	set @resultado = 0
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[cargaSOSCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[cargaSOSCelular] (@id_Usuario int, @resultado decimal(18,2) output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	Declare @prestamoSOS bit
+
+	Declare @creditoUsuario decimal(18,2)
+
+	select @prestamoSOS = prestamoSOS from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	if @prestamoSOS = 0
+
+	begin
+
+		select @resultado = valorOferta from tablaValorOfertas where id_Oferta = 7 and validezOferta = 1
+
+		if @resultado is null or @resultado = 0 
+
+		begin
+
+			set @resultado = 0
+
+			COMMIT TRANSACTION
+
+			return @resultado
+
+		end
+	
+		select @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+		update tablaCreditoUsuario set prestamoSOS = 1, prestamoReal = @resultado, creditoUsuario = @creditoUsuario + @resultado where id_Usuario = @id_Usuario
+	
+		COMMIT TRANSACTION	
+	
+		return @resultado
+
+	end
+
+
+	if @prestamoSOS = 1
+
+	begin
+
+		set @resultado = -1
+
+		COMMIT TRANSACTION
+
+		return @resultado
+
+	end
+
+end try
+
+begin catch
+
+	set @resultado = 0
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+
+GO
+/****** Object:  StoredProcedure [dbo].[contarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[contarRespuestasEjercicios](@id_Usuario int, @resultado int output) as
+
+begin try
+
+	select @resultado = count(id_Usuario) from vistaRespuestasEjercicios where id_Usuario = @id_Usuario and vencimientoEjercicio >= GETDATE()
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[contarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[contarRespuestasVideos](@id_Usuario int, @resultado int output) as
+
+begin try
+
+	select @resultado = count(id_Usuario) from vistaRespuestaVideos where id_Usuario = @id_Usuario and vencimientoEjercicio >= GETDATE()
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[insertarEjercicioEnviado]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[insertarEjercicioEnviado](@archivoAdjunto nvarchar(30), @explicarEjercicio bit, @okRealizado bit, @id_Usuario int, @resultado int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	insert into tablaEjerciciosEnviados (archivoAdjunto, explicarEjercicio, okRealizado, id_Usuario, fechaPedido, id_Profesor) values (@archivoAdjunto, @explicarEjercicio, 0, @id_Usuario, Getdate(), NULL)
+	
+	set @resultado = 1
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @resultado = 0
+	
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[loguearUsuarioCelular] (@codigoPais int,@numeroCelular bigint,@contrasenaUsuario nchar(10),@respuestas nvarchar(30) output)as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @id_Usuario int
+
+	declare @creditoUsuario decimal(18,2)
+
+	select @id_Usuario=id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular and contrasenaUsuario = @contrasenaUsuario and activacionUsuario = 1
+
+	if @id_Usuario is null
+
+	begin
+
+		set @respuestas = '0'
+
+		COMMIT TRANSACTION
+
+		return
+
+	end
+
+	select @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	set @respuestas = CAST(@id_Usuario AS nvarchar(5)) + 'x' + CAST(@creditoUsuario AS nvarchar(12))
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @respuestas = 0
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelularId]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[loguearUsuarioCelularId] (@id_Usuario int,@respuestas nvarchar(30) output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @codigoPais int
+
+	declare @creditoUsuario decimal(18,2)
+
+	declare @numeroCelular bigint
+
+	select @codigoPais = codigoPais, @numeroCelular = numeroCelular from tablaUsuario where id_Usuario = @id_Usuario and activacionUsuario = 1
+
+	if @id_Usuario is null
+
+	begin
+
+		set @respuestas = '0'
+
+		COMMIT TRANSACTION
+
+		return
+
+	end
+
+	declare @telefono nvarchar(25)
+
+	select @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	set @respuestas = '+' + CAST(@codigoPais AS nvarchar(5)) + Cast(@numeroCelular as nvarchar(15)) + 'x' + CAST(@creditoUsuario AS nvarchar(12))
+	
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @respuestas = 0
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[loguearUsuarioPC] (@nickUsuario nvarchar(50),@contrasenaUsuario nvarchar(10),@respuestas nvarchar(30) output)as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @id_Usuario int
+
+	declare @codigoPais int
+
+	declare @numeroCelular bigint
+
+	declare @creditoUsuario decimal(18,2)
+
+
+	--logueado como usuario correo
+	
+
+	select @id_Usuario=id_Usuario from tablaUsuario where correoElectronico = @nickUsuario and contrasenaUsuario = @contrasenaUsuario and activacionUsuario = 1
+		
+	if @id_Usuario is null
+
+	begin
+	
+
+		--logueado como usuario numero de celular
+
+
+		set @codigoPais = SUBSTRING(@nickUsuario, 1,2)
+
+		set @numeroCelular = SUBSTRING(@nickUsuario,3,LEN(@nickUsuario)-2)
+
+		select @id_Usuario=id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular and contrasenaUsuario = @contrasenaUsuario and activacionUsuario = 1
+			
+			if @id_Usuario is null
+
+			begin
+
+				set @respuestas = '0'
+
+				COMMIT TRANSACTION
+
+				return
+
+			end
+
+	end
+
+	select @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	set @respuestas = CAST(@id_Usuario AS nvarchar(5)) + 'x' + CAST(@creditoUsuario AS nvarchar(12))
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @respuestas = 0
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[modificarNombre]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[modificarNombre](@id_PedidoEjercicio int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	select @id_PedidoEjercicio = MAX(id_PedidoEjercicio) from tablaEjerciciosEnviados 
+
+	if (@id_PedidoEjercicio is null)
+
+		begin
+
+			set @id_PedidoEjercicio = 1
+
+		end
+	
+	COMMIT TRANSACTION
+
+	return 
+
+end try
+
+begin catch
+	
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[mostrarPerfilUsuarioPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create proc [dbo].[mostrarPerfilUsuarioPC](@id_Usuario int) as
+
+begin try
+
+	select correoElectronico, contrasenaUsuario, numeroCelular, codigoPais from tablaUsuario where id_Usuario = @id_Usuario
+
+end try
+
+begin catch
+
+	return -6
+
+end catch 
+GO
+/****** Object:  StoredProcedure [dbo].[mostrarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[mostrarRespuestasEjercicios](@id_Usuario int) as
+
+begin try
+
+	select id_Ejercicio, vencimientoEjercicio, tituloEjercicio, id_Usuario, id_Respuesta from vistaRespuestasEjercicios where id_Usuario = @id_Usuario and vencimientoEjercicio >= GETDATE()
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[mostrarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[mostrarRespuestasVideos](@id_Usuario int) as
+
+begin try
+
+	select id_Ejercicio, vencimientoEjercicio, tituloEjercicio, id_Usuario, id_Respuesta from vistaRespuestaVideos where id_Usuario = @id_Usuario and vencimientoEjercicio >= GETDATE()
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[recomendarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[recomendarUsuarioCelular] (@codigoPais int, @numeroCelular bigint, @id_Usuario int) as
+
+BEGIN TRANSACTION
+
+begin try	
+
+	if exists (select id_UsuarioRecomendado from tablaRecomendados where codigoPais = @codigoPais and numeroCelular = @numeroCelular)
+
+		begin
+
+			COMMIT TRANSACTION
+
+			return
+
+		end
+
+	if exists (select id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular)
+
+		begin 
+		
+			COMMIT TRANSACTION
+
+			return
+
+		end		
+
+	insert into tablaRecomendados (codigoPais, numeroCelular, fechaRegistro, id_Usuario) values (@codigoPais, @numeroCelular, GETDATE(), @id_Usuario) 
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	ROLLBACK TRANSACTION
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[recuperarContrasenaCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[recuperarContrasenaCelular] (@codigoPais int, @numeroCelular bigint, @contrasenaUsuario nvarchar(10) output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	if exists (select id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular and activacionUsuario = 1)
+
+		begin
+
+			select @contrasenaUsuario = contrasenaUsuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular
+
+			COMMIT TRANSACTION
+
+			return
+
+		end
+		
+	set @contrasenaUsuario = -1
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	set @contrasenaUsuario = -1
+
+	ROLLBACK TRANSACTION	
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[recuperarContrasenaPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[recuperarContrasenaPC] (@nickUsuario nvarchar(20), @contrasenaUsuario nvarchar(10) output) as
+
+begin try
+
+
+    --logueado como usuario correo
+
+
+	if exists (select id_Usuario from tablaUsuario where correoElectronico = @nickUsuario and activacionUsuario = 1)
+
+		begin
+
+			select @contrasenaUsuario = contrasenaUsuario from tablaUsuario where correoElectronico = @nickUsuario and activacionUsuario = 1
+
+			set @contrasenaUsuario = @contrasenaUsuario + '1'
+
+			return 
+
+		end
+
+
+	declare @codigoPais int
+
+	declare @numeroCelular bigint
+
+
+	--logueado como usuario numero de celular
+
+
+	set @codigoPais = SUBSTRING(@nickUsuario, 1,2)
+
+	set @numeroCelular = SUBSTRING(@nickUsuario,3,LEN(@nickUsuario)-2)
+
+	if exists (select id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular and activacionUsuario = 1)
+
+		begin
+
+			select @contrasenaUsuario = contrasenaUsuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular
+
+			set @contrasenaUsuario = @contrasenaUsuario + '2'
+
+			return 
+					
+		end
+		
+	set @contrasenaUsuario = -1
+	
+	return
+
+end try
+
+begin catch
+
+	set @contrasenaUsuario = -1
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE proc [dbo].[registrarUsuarioCelular] (@codigoPais int, @numeroCelular bigint, @contrasenaUsuario nvarchar(10), @codigoSMS int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	declare @recomendadorUsuario int
+
+	Declare @id_Usuario int
+
+	declare @ofertarecomendado decimal(18,2)
+
+	declare @ofertarecomendador decimal(18,2)
+
+	select @recomendadorUsuario = id_Usuario from tablaRecomendados where codigoPais = @codigoPais and numeroCelular = @numeroCelular
+
+	select @ofertarecomendado = valorOferta from tablaValorOfertas where id_Oferta = 8 and validezOferta = 1
+
+	select @ofertarecomendador = valorOferta from tablaValorOfertas where id_Oferta = 9 and validezOferta = 1
+	
+	if @recomendadorUsuario is not null
+
+		begin
+		
+			set @codigoSMS = ROUND(((999999 - 111111) * Rand() + 111111),0);
+
+			insert into tablaUsuario (codigoPais, numeroCelular, contrasenaUsuario, activacionUsuario,codigoSMS,correoElectronico, id_Facebook, nameFacebook) values (@codigoPais, @numeroCelular, @contrasenaUsuario,0,@codigoSMS,null,null,null) 
+
+			select @id_Usuario = max(id_Usuario) from tablaUsuario
+	        
+			insert into tablaCreditoUsuario (id_Usuario, creditoUsuario,prestamoReal,prestamoSOS) values (@id_Usuario,@ofertarecomendado,0,0)
+
+			update tablaCreditoUsuario set creditoUsuario = @ofertarecomendador where id_Usuario = @recomendadorUsuario
+
+			delete from tablaRecomendados where codigoPais = @codigoPais and numeroCelular = @numeroCelular
+
+			COMMIT TRANSACTION
+	
+			return 
+			
+		end
+
+	if exists (select id_Usuario from tablaUsuario where codigoPais = @codigoPais and numeroCelular = @numeroCelular)
+	
+		begin
+		
+			set @codigoSMS = -1
+
+			COMMIT TRANSACTION
+	
+			return
+		
+		end 
+
+	set @codigoSMS = ROUND(((999999 - 111111) * Rand() + 111111),0);
+
+	insert into tablaUsuario (codigoPais, numeroCelular, contrasenaUsuario, activacionUsuario,codigoSMS,correoElectronico, id_Facebook, nameFacebook) values (@codigoPais, @numeroCelular, @contrasenaUsuario,0,@codigoSMS,null,null,null) 
+	
+	select @id_Usuario = max(id_Usuario) from tablaUsuario
+
+	insert into tablaCreditoUsuario (id_Usuario, creditoUsuario,prestamoReal,prestamoSOS) values (@id_Usuario,@ofertarecomendado,0,0)
+
+	COMMIT TRANSACTION
+
+	return
+
+end try
+
+begin catch
+
+	ROLLBACK TRANSACTION
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioEmailPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[registrarUsuarioEmailPC] (@correoElectronico nvarchar(30),@claveUsuario nvarchar(10), @respuesta int output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	Declare @id_Usuario int
+
+	declare @ofertaregistrar decimal(18,2)
+
+	declare @creditoUsuario decimal(18,2)
+
+	select @ofertaregistrar = valorOferta from tablaValorOfertas where id_Oferta = 8 and validezOferta = 1
+
+	select @id_Usuario=id_Usuario from tablaUsuario where correoElectronico = @correoElectronico and activacionUsuario = 1
+
+	if @id_Usuario is null
+
+		begin 
+
+			insert into tablaUsuario (codigoPais, numeroCelular, contrasenaUsuario, activacionUsuario,codigoSMS, correoElectronico, id_Facebook, nameFacebook) values (null, null, @claveUsuario,1,null,@correoElectronico,null,null) 
+
+			select @id_Usuario = max(id_Usuario) from tablaUsuario
+	        
+			insert into tablaCreditoUsuario (id_Usuario, creditoUsuario,prestamoReal,prestamoSOS) values (@id_Usuario,@ofertaregistrar,0,0)
+			
+			set @respuesta = 1
+
+			COMMIT TRANSACTION
+	
+			return
+
+		end
+	
+	set @respuesta = -1
+
+	COMMIT TRANSACTION
+	
+	return
+	
+end try
+
+begin catch
+
+	ROLLBACK TRANSACTION
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioFacebookPC]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[registrarUsuarioFacebookPC]  (@id_Facebook bigint, @nameFacebook nvarchar(30), @respuestas nvarchar(40) output) as
+
+BEGIN TRANSACTION
+
+begin try
+
+	Declare @id_Usuario int
+
+	declare @ofertaregistrar decimal(18,2)
+
+	declare @creditoUsuario decimal(18,2)
+
+	select @ofertaregistrar = valorOferta from tablaValorOfertas where id_Oferta = 8 and validezOferta = 1
+
+	select @id_Usuario=id_Usuario from tablaUsuario where id_Facebook = @id_Facebook and activacionUsuario = 1
+
+	if @id_Usuario is null
+
+		begin 
+
+			insert into tablaUsuario (codigoPais, numeroCelular, contrasenaUsuario, activacionUsuario,codigoSMS, correoElectronico, id_Facebook, nameFacebook) values (null, null, null,1,null,null,@id_Facebook,@nameFacebook) 
+
+			select @id_Usuario = max(id_Usuario) from tablaUsuario
+	        
+			insert into tablaCreditoUsuario (id_Usuario, creditoUsuario,prestamoReal,prestamoSOS) values (@id_Usuario,@ofertaregistrar,0,0)
+			
+		end
+	
+	select @creditoUsuario = creditoUsuario from tablaCreditoUsuario where id_Usuario = @id_Usuario
+
+	set @respuestas = CAST(@id_Usuario AS nvarchar(5)) + 'x' + CAST(@creditoUsuario AS nvarchar(12))
+
+	commit transaction
+
+	return
+	
+end try
+
+begin catch
+
+	ROLLBACK TRANSACTION
+
+	return
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[ubicarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[ubicarRespuestasEjercicios](@id_Respuesta int) as
+
+begin try
+
+	select ubicacionRespuestaEjercicio from vistaRespuestasEjercicios where id_Respuesta = @id_Respuesta
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+/****** Object:  StoredProcedure [dbo].[ubicarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE proc [dbo].[ubicarRespuestasVideos](@id_Respuesta int) as
+
+begin try
+
+	select ubicacionVideosExplicaciones from vistaRespuestaVideos where id_Respuesta = @id_Respuesta
+
+	return 
+
+end try
+
+begin catch
+
+	return -6
+
+end catch
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "tablaUbicacionRespuesta"
+            Begin Extent = 
+               Top = 6
+               Left = 285
+               Bottom = 119
+               Right = 531
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "tablaRespuestasEjercicios"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 136
+               Right = 247
+            End
+            DisplayFlags = 280
+            TopColumn = 1
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestasEjercicios'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestasEjercicios'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties = 
+   Begin PaneConfigurations = 
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane = 
+      Begin Origin = 
+         Top = 0
+         Left = 0
+      End
+      Begin Tables = 
+         Begin Table = "tablaUbicacionRespuesta"
+            Begin Extent = 
+               Top = 6
+               Left = 285
+               Bottom = 119
+               Right = 531
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "tablaRespuestasVideos"
+            Begin Extent = 
+               Top = 6
+               Left = 38
+               Bottom = 136
+               Right = 247
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane = 
+   End
+   Begin DataPane = 
+      Begin ParameterDefaults = ""
+      End
+      Begin ColumnWidths = 9
+         Width = 284
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+         Width = 1500
+      End
+   End
+   Begin CriteriaPane = 
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestaVideos'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestaVideos'
+GO
