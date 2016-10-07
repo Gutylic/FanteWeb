@@ -136,6 +136,36 @@
 
         }
 
+        function bigImg1(x) {
+            document.getElementById("ImagenAmigo").src = "Image/AmigoM.png";
+        }
+
+        function normalImg1(x) {
+            document.getElementById("ImagenAmigo").src = "Image/Amigo.png";
+        }
+                   
+        function bigImg2(x) {
+            document.getElementById("ImagenCarga").src = "Image/cargaM.png";
+        }
+
+        function normalImg2(x) {
+            document.getElementById("ImagenCarga").src = "Image/carga.png";
+        }
+
+        function bigImg3(x) {
+            document.getElementById("ImagenEjercicios").src = "Image/ejerciciosM.png";
+        }
+
+        function normalImg3(x) {
+            document.getElementById("ImagenEjercicios").src = "Image/ejercicios.png";
+        }
+        function bigImg4(x) {
+            document.getElementById("ImagenVideos").src = "Image/videosM.png";
+        }
+
+        function normalImg4(x) {
+            document.getElementById("ImagenVideos").src = "Image/videos.png";
+        }
     </script>
 
     <link href="css/indexlogueo.css" rel="stylesheet" />
@@ -194,10 +224,10 @@
 
                 <div style='width: 170px'>
 
-                    <asp:ImageButton ID="ImagenAmigo" ImageUrl="Image/Amigo.png" OnClick="ImagenAmigo_Click" runat="server" />
-                    <asp:ImageButton ID="ImagenCarga" ImageUrl="Image/carga.png" OnClick="ImagenCarga_Click" runat="server" />
-                    <asp:ImageButton ID="ImagenEjercicios" ImageUrl="Image/ejercicios.png" OnClick="ImagenEjercicios_Click" runat="server" />
-                    <asp:ImageButton ID="ImagenVideos" ImageUrl="Image/videos.png" OnClick="ImagenVideos_Click" runat="server" />
+                    <asp:ImageButton ID="ImagenAmigo" onmouseover="bigImg1(this)" onmouseout="normalImg1(this)" ImageUrl="Image/Amigo.png"  OnClick="ImagenAmigo_Click" runat="server" />
+                    <asp:ImageButton ID="ImagenCarga" onmouseover="bigImg2(this)" onmouseout="normalImg2(this)" ImageUrl="Image/carga.png" OnClick="ImagenCarga_Click" runat="server" />
+                    <asp:ImageButton ID="ImagenEjercicios" onmouseover="bigImg3(this)" onmouseout="normalImg3(this)" ImageUrl="Image/ejercicios.png" OnClick="ImagenEjercicios_Click" runat="server" />
+                    <asp:ImageButton ID="ImagenVideos" onmouseover="bigImg4(this)" onmouseout="normalImg4(this)" ImageUrl="Image/videos.png" OnClick="ImagenVideos_Click" runat="server" />
 
                 </div>
 

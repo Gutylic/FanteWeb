@@ -1,6 +1,186 @@
+USE [master]
+GO
+/****** Object:  Database [APP]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE DATABASE [APP]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'APP', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\APP.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'APP_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\APP_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [APP] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [APP].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [APP] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [APP] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [APP] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [APP] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [APP] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [APP] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [APP] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [APP] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [APP] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [APP] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [APP] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [APP] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [APP] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [APP] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [APP] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [APP] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [APP] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [APP] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [APP] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [APP] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [APP] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [APP] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [APP] SET RECOVERY FULL 
+GO
+ALTER DATABASE [APP] SET  MULTI_USER 
+GO
+ALTER DATABASE [APP] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [APP] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [APP] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [APP] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [APP] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'APP', N'ON'
+GO
+ALTER DATABASE [APP] SET QUERY_STORE = OFF
+GO
 USE [APP]
 GO
-/****** Object:  Table [dbo].[tablaRespuestasEjercicios]    Script Date: 06/10/2016 0:21:57 ******/
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [APP]
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaEjercicios]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaEjercicios] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 19999999
+ CYCLE 
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaEjerciciosEnviados]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaEjerciciosEnviados] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 199999999
+ CYCLE 
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaRecomendados]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaRecomendados] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 199999999
+ CYCLE 
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaRespuestasEjercicios]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaRespuestasEjercicios] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 19999999
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaRespuestasVideos]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaRespuestasVideos] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 199999999
+ CYCLE 
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaTarjeta]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaTarjeta] 
+ AS [bigint]
+ START WITH 1
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 199999999
+ CYCLE 
+ CACHE 
+GO
+USE [APP]
+GO
+/****** Object:  Sequence [dbo].[secuenciaTablaUsuario]    Script Date: 06/10/2016 21:07:17 ******/
+CREATE SEQUENCE [dbo].[secuenciaTablaUsuario] 
+ AS [bigint]
+ START WITH 3
+ INCREMENT BY 1
+ MINVALUE 1
+ MAXVALUE 19999999
+ CYCLE 
+ CACHE 
+GO
+/****** Object:  Table [dbo].[tablaRespuestasEjercicios]    Script Date: 06/10/2016 21:07:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +194,7 @@ CREATE TABLE [dbo].[tablaRespuestasEjercicios](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaUbicacionRespuesta]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaUbicacionRespuesta]    Script Date: 06/10/2016 21:07:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,7 +210,7 @@ CREATE TABLE [dbo].[tablaUbicacionRespuesta](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  View [dbo].[vistaRespuestasEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  View [dbo].[vistaRespuestasEjercicios]    Script Date: 06/10/2016 21:07:21 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -43,7 +223,7 @@ FROM            dbo.tablaUbicacionRespuesta INNER JOIN
                          dbo.tablaRespuestasEjercicios ON dbo.tablaUbicacionRespuesta.id_Ejercicio = dbo.tablaRespuestasEjercicios.id_Ejercicio
 
 GO
-/****** Object:  Table [dbo].[tablaRespuestasVideos]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaRespuestasVideos]    Script Date: 06/10/2016 21:07:22 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -57,7 +237,7 @@ CREATE TABLE [dbo].[tablaRespuestasVideos](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  View [dbo].[vistaRespuestaVideos]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  View [dbo].[vistaRespuestaVideos]    Script Date: 06/10/2016 21:07:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -70,7 +250,7 @@ FROM            dbo.tablaUbicacionRespuesta INNER JOIN
                          dbo.tablaRespuestasVideos ON dbo.tablaUbicacionRespuesta.id_Ejercicio = dbo.tablaRespuestasVideos.id_Ejercicio
 
 GO
-/****** Object:  Table [dbo].[tablaCreditoUsuario]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaCreditoUsuario]    Script Date: 06/10/2016 21:07:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -88,7 +268,7 @@ CREATE TABLE [dbo].[tablaCreditoUsuario](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaEjercicios]    Script Date: 06/10/2016 21:07:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -104,7 +284,7 @@ CREATE TABLE [dbo].[tablaEjercicios](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaEjerciciosEnviados]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaEjerciciosEnviados]    Script Date: 06/10/2016 21:07:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +304,7 @@ CREATE TABLE [dbo].[tablaEjerciciosEnviados](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaEnunciadoEjercicios]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaEnunciadoEjercicios]    Script Date: 06/10/2016 21:07:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -140,7 +320,7 @@ CREATE TABLE [dbo].[tablaEnunciadoEjercicios](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaRecomendados]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaRecomendados]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -158,7 +338,7 @@ CREATE TABLE [dbo].[tablaRecomendados](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaTarjeta]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaTarjeta]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +356,7 @@ CREATE TABLE [dbo].[tablaTarjeta](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaTipoProducto]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaTipoProducto]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -191,7 +371,7 @@ CREATE TABLE [dbo].[tablaTipoProducto](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaUsuario]    Script Date: 06/10/2016 0:21:58 ******/
+/****** Object:  Table [dbo].[tablaUsuario]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -213,7 +393,7 @@ CREATE TABLE [dbo].[tablaUsuario](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[tablaValorOfertas]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  Table [dbo].[tablaValorOfertas]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -621,7 +801,7 @@ ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[tablaUbicacionRespuesta] CHECK CONSTRAINT [FK_tablaUbicacionRespuesta_tablaEnunciadoEjercicios]
 GO
-/****** Object:  StoredProcedure [dbo].[activarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[activarUsuarioCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -650,7 +830,7 @@ begin try
 
 	update tablaUsuario set activacionUsuario = 1 where id_Usuario = @id_Usuario 
 
-	set @resultado = 1
+	set @resultado = @id_Usuario
 
 	COMMIT TRANSACTION
 
@@ -669,7 +849,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[actualizarPerfilCelularPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilCelularPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -769,7 +949,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[actualizarPerfilContrasenaPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilContrasenaPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -800,7 +980,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[actualizarPerfilCorreoPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[actualizarPerfilCorreoPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -882,7 +1062,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[avisoPrestamoPedido]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[avisoPrestamoPedido]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -928,7 +1108,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoParcialSOS]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoParcialSOS]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1103,7 +1283,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoTotalSOS]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[cargarCreditoTarjetaPagoTotalSOS]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1223,7 +1403,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[cargaSOSCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[cargaSOSCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1294,7 +1474,7 @@ begin catch
 end catch
 
 GO
-/****** Object:  StoredProcedure [dbo].[contarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[contarRespuestasEjercicios]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1315,7 +1495,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[contarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[contarRespuestasVideos]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1336,7 +1516,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[insertarEjercicioEnviado]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[insertarEjercicioEnviado]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1367,7 +1547,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1416,7 +1596,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelularId]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioCelularId]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1435,7 +1615,7 @@ begin try
 
 	select @codigoPais = codigoPais, @numeroCelular = numeroCelular from tablaUsuario where id_Usuario = @id_Usuario and activacionUsuario = 1
 
-	if @id_Usuario is null
+	if (@codigoPais is null or @numeroCelular is null)
 
 	begin
 
@@ -1469,7 +1649,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[loguearUsuarioPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[loguearUsuarioPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1542,7 +1722,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[modificarNombre]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[modificarNombre]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1577,7 +1757,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarPerfilUsuarioPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[mostrarPerfilUsuarioPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1596,7 +1776,7 @@ begin catch
 
 end catch 
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[mostrarRespuestasEjercicios]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1617,7 +1797,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[mostrarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[mostrarRespuestasVideos]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1638,7 +1818,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[recomendarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[recomendarUsuarioCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1685,7 +1865,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[recuperarContrasenaCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[recuperarContrasenaCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1726,7 +1906,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[recuperarContrasenaPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[recuperarContrasenaPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1790,7 +1970,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[registrarUsuarioCelular]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioCelular]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1872,7 +2052,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[registrarUsuarioEmailPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioEmailPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1927,7 +2107,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[registrarUsuarioFacebookPC]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[registrarUsuarioFacebookPC]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1978,7 +2158,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[ubicarRespuestasEjercicios]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[ubicarRespuestasEjercicios]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1999,7 +2179,7 @@ begin catch
 
 end catch
 GO
-/****** Object:  StoredProcedure [dbo].[ubicarRespuestasVideos]    Script Date: 06/10/2016 0:21:59 ******/
+/****** Object:  StoredProcedure [dbo].[ubicarRespuestasVideos]    Script Date: 06/10/2016 21:07:24 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2272,4 +2452,8 @@ End
 ' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestaVideos'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vistaRespuestaVideos'
+GO
+USE [master]
+GO
+ALTER DATABASE [APP] SET  READ_WRITE 
 GO
